@@ -1,0 +1,23 @@
+<h1><%= @restaurant.name %></h1>
+<p><%= "Type: #{@restaurant.category.capitalize}" %></p>
+<p><%= @restaurant.address %></p>
+<p><%= "Phone: #{@restaurant.phone_number.nil? ? "not filled" : @restaurant.phone_number}" %></p>
+
+<p><strong>Reviews</strong></p>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item"><%= "⭐" * review.rating %> <%= review.content %></li>
+  <% end %>
+</ul>
+<br>
+
+<p><strong>New review</strong></p>
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.input :rating %>
+  <%= f.input :content %>
+  <%= f.submit "Submit review", class: "btn btn-primary" %>
+<% end %>
+<br>
+
+<%# <%= link_to "Add a new review", new_restaurant_review_path(@restaurant) %>
+<%= link_to "Back to list", restaurants_path %>
